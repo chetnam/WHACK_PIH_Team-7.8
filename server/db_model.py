@@ -10,7 +10,7 @@ import os
 DB_NAME = 'test'
 DB_USER = 'dbadmin'
 DB_PASSWORD = ''
-DB_HOST = os.environ['DB_HOST']
+DB_HOST = 'ec2-54-210-236-166.compute-1.amazonaws.com'
 
 conn_info = {'host': DB_HOST,
              'port': 5433,
