@@ -1,12 +1,11 @@
 
 // set up our data series with 50 random data points
 
-var seriesData = [ [], [] ];
-var random = new Rickshaw.Fixtures.RandomData(500);
 
-for (var i = 0; i < 500; i++) {
-	random.addData(seriesData);
-}
+//convert x to unix epoch Time
+
+var seriesData = [ [{x:1475365030, y:2}, {x:1475365031, y:3}, {x:1475365032, y:3}, {x:1475365034, y:4}, {x:1475365037, y:3}, {x:1475365040, y:2}] ];
+
 
 console.log(seriesData);
 
@@ -21,10 +20,10 @@ var graph = new Rickshaw.Graph( {
 		{
 			color: "#ff9030",
 			data: seriesData[0],
-		}, {
-			color: "#4c4cff",
-			data: seriesData[1],
-		}
+		}//,{
+		// 	color: "#4c4cff",
+		// 	data: seriesData[1],
+		// }
 	]
 } );
 
