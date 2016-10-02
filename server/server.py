@@ -16,7 +16,7 @@ lastMessage = None
 @app.route("/")
 def index():
 
-	db.setup()
+    db.setup()
 
     return render_template("index.html", lastMessage=lastMessage)
 

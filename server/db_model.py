@@ -88,7 +88,7 @@ def setup():
             for l in f:
                 if count > 0:
                     d = l.strip().split('\t')
-                    row_query = "insert into pih_data values (" + "'" + d[0].replace("'",'\'') + "','" + d[1].replace("'",'\'') + "','" + d[2].replace("'",'\'') + "','" + d[3].replace("'",'\'') + "','" + d[4].replace("'",'\'') + "','" + d[5].replace("'",'\'') + "','" + d[6].replace("'",'\'') + "','" + d[7].replace("'",'\'') + "'," + "'" + d[8].replace("'",'\'') + "'," + "'" + d[9].replace("'",'\'') + "'," + "'" + d[10].replace("'",'\'') + "'," + "'" + d[11].replace("'",'\'') + "');"
+                    row_query = "insert into pih_data values (" + "'" + d[0].replace("'",'') + "','" + d[1].replace("'",'') + "','" + d[2].replace("'",'') + "','" + d[3].replace("'",'') + "','" + d[4].replace("'",'') + "','" + d[5].replace("'",'') + "','" + d[6].replace("'",'') + "','" + d[7].replace("'",'') + "'," + "'" + d[8].replace("'",'') + "'," + "'" + d[9].replace("'",'') + "'," + "'" + d[10].replace("'",'') + "'," + "'" + d[11].replace("'",'') + "');"
                     print row_query
                     cur.execute(row_query)
                 count += 1
