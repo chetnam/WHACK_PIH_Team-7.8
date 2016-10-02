@@ -69,6 +69,18 @@ def addOrder(m):
 def getOrders():
     return query_db("select * from orders;")
 
+
+def makeVisDict(loc, item):
+    locQuery = "select * from locations where REGEXP_LIKE(loc_name, '.*?"+ loc +".*?', 'i');"
+    loc_info = query_db(locQuery)
+    print loc_info
+
+    orderQuery = "select * from orders where location_id=" + loc_info[id] + ";"
+    order_info = query_db(orderQuery)
+    print order_info
+
+
+
 # pls only run once to setup the tables
 def setup():
     cur = get_db().cursor()

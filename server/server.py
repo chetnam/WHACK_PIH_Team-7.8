@@ -16,7 +16,7 @@ messageInfo = dict()
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        request.form
+        d = db.makeVisDict(request.form['item'], request.form['location'])
     return render_template("index.html")
 
 #replies to user's text
@@ -29,7 +29,6 @@ def incoming_sms():
         body = request.values.get('Body', None)
         validMessage = isBodyValid(body)
         print request.values
-
         # Start our TwiML response
         response = twiml.Response()
 
