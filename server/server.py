@@ -17,8 +17,7 @@ lastMessage = None
 def index():
 
     db.setup()
-
-    return render_template("index.html", lastMessage=lastMessage)
+    return render_template("index.html", lastMessage=db.select())
 
 #replies to user's text
 @app.route("/sms", methods=['GET', 'POST'])
