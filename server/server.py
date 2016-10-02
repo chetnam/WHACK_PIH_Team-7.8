@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect
-from flask import render_template
+from flask import render_template, jsonify
 from twilio import twiml
 from orderValidity import *
 
@@ -16,7 +16,8 @@ messageInfo = dict()
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        request.form
+        d = db.makeVisDict(request.form['location'], request.form['item'])
+        return jsonify(d)
     return render_template("index.html")
 
 #replies to user's text
@@ -28,8 +29,7 @@ def incoming_sms():
     if request.method == 'POST':
         body = request.values.get('Body', None)
         validMessage = isBodyValid(body)
-        print request.values
-
+        #print request.values
         # Start our TwiML response
         response = twiml.Response()
 
@@ -40,7 +40,7 @@ def incoming_sms():
         if validMessage==True:
             parsedMessage = splitBody(body)
             message = "Location " + parsedMessage['location_id'] + " , thank you for your order!"
-            print parsedMessage
+           # print parsedMessage
             db.addOrder(parsedMessage)
 
         elif validMessage!=True:
