@@ -18,13 +18,13 @@ def index():
 
     return render_template("index.html")
 
+#replies to user's text
 @app.route("/sms", methods=['GET', 'POST'])
 def incoming_sms():
     """Send a dynamic reply to an incoming text message"""
     # Get the message the user sent our Twilio number
     #body = client.messages.get('+16303625933')
     body = request.get['Body']
-    
     validMessage = isBodyValid(body)
 
     # Start our TwiML response
@@ -35,7 +35,9 @@ def incoming_sms():
     # Determine the right reply for this message
     # Text Message should be in form "Location_ID, SKU, ItemAmount"
     if validMessage==True:
-        message = "Location " + (splitBody(body))[2] + " , thank you for your order!"
+        parsedMessage = splitBody(body)
+        message = "Location " + parsedMessage[0] + " , thank you for your order!"
+        #db.add(parsedMessage)
     elif validMessage!=True:
         message = "Please abide by the order message syntax rules and try again. Thank yoU!"
         
