@@ -6,6 +6,7 @@ import vertica_python
 
 import re
 import os
+import datetime
 
 DB_NAME = 'test'
 DB_USER = 'dbadmin'
@@ -62,6 +63,12 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 
+def addOrder(m):
+    query_db("insert into orders (sku, location_id, item_amount, date_received) values ('" + str(m['SKU']) + "'," + str(m['location_id']) + "," + str(m['amount']) + ",'" + str(datetime.datetime.now()) + "'::timestamp); commit;")
+
+def getOrders():
+    return query_db("select * from orders;")
+
 # pls only run once to setup the tables
 def setup():
     cur = get_db().cursor()
@@ -87,13 +94,12 @@ def setup():
             count = 0
             for l in f:
                 if count > 0:
-                    count += 1
-                    row_query = "insert into pih_data values " + str(tuple(l.strip().split('\t'))) + ";"
+                    d = l.strip().split('\t')
+                    row_query = "insert into pih_data values (" + "'" + d[0].replace("'",'') + "','" + d[1].replace("'",'') + "','" + d[2].replace("'",'') + "','" + d[3].replace("'",'') + "','" + d[4].replace("'",'') + "','" + d[5].replace("'",'') + "','" + d[6].replace("'",'') + "','" + d[7].replace("'",'') + "'," + "'" + d[8].replace("'",'') + "'," + "'" + d[9].replace("'",'') + "'," + "'" + d[10].replace("'",'') + "'," + "'" + d[11].replace("'",'') + "'); commit;"
                     cur.execute(row_query)
+                    print row_query
+                count += 1
 
-
-
-        
         # rv = cur.fetchall()
 
         # Turn into colname->val dict representation of tuple
@@ -106,15 +112,13 @@ def setup():
 
     cur.close()
 
-def select_one():
+def select():
     """
         Select 1 from database
     """
-    setup()
-    sql = "SELECT * FROM contact LIMIT 2"
+    sql = "SELECT * FROM pih_data"
     results = query_db(sql)
 
-    print results
     return results
 
 # @app.teardown_appcontext
