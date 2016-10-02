@@ -11,38 +11,42 @@ import json
 from datetime import date
 from datetime import timedelta
 
+lastMessage = None
+
 @app.route("/")
 def index():
 
     results = db.select_one()
 
-    return render_template("index.html")
+    return render_template("index.html", lastMessage=lastMessage)
 
 #replies to user's text
 @app.route("/sms", methods=['GET', 'POST'])
 def incoming_sms():
     """Send a dynamic reply to an incoming text message"""
     # Get the message the user sent our Twilio number
-    #body = client.messages.get('+16303625933')
-    body = request.get['Body']
-    validMessage = isBodyValid(body)
+<<<<<<< HEAD
+    if request.method == 'POST':
+        #body = client.messages.get('+16303625933')
+        body = request.get['Body']
+        validMessage = isBodyValid(body)
 
-    # Start our TwiML response
-    response = twiml.Response()
+        # Start our TwiML response
+        response = twiml.Response()
 
-    message = '';
+        message = '';
 
-    # Determine the right reply for this message
-    # Text Message should be in form "Location_ID, SKU, ItemAmount"
-    if validMessage==True:
-        parsedMessage = splitBody(body)
-        message = "Location " + parsedMessage[0] + " , thank you for your order!"
-        #db.add(parsedMessage)
-    elif validMessage!=True:
-        message = "Please abide by the order message syntax rules and try again. Thank yoU!"
+        # Determine the right reply for this message
+        # Text Message should be in form "Location_ID, SKU, ItemAmount"
+        if validMessage==True:
+            parsedMessage = splitBody(body)
+            message = "Location " + parsedMessage[0] + " , thank you for your order!"
+            #db.add(parsedMessage)
+        elif validMessage!=True:
+            message = "Please abide by the order message syntax rules and try again. Thank yoU!"
         
-    response.sms(message)
-    return str(response)
+        response.sms(message)
+        return str(response)
 
 if __name__ == "__main__":
     app.run('0.0.0.0')
