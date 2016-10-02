@@ -1,0 +1,58 @@
+body {
+  color: #8ac7db;
+}
+legend, .ui-selectmenu-optgroup {
+  font-weight: bolder;
+  color: #3ca1c3;
+}
+p {
+  color: #3ca1c3;
+  padding-left: 2%;
+}
+.data-input {
+  margin-top: 10%;
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 30%;
+  float: left;
+  z-index: 9;
+}
+.data-input-field {
+  width: 100%;
+}
+#submitRequest{
+  padding-left: 30%;
+  padding-right: 30%;
+  width: auto;
+}
+#files-menu {
+  background-color: white;
+  border: 1px solid gray;
+  overflow-y: scroll;
+  max-height: 200px;
+}
+#files-button {
+  border: 1px solid lightgray;
+}
+#radioButtons {
+  font-size: 12px;
+}
+
+#chart {
+  width: 65%;
+  height: auto;
+  border: 1px solid gray;
+  background-color: white;
+  z-index: 10;
+  float: right;
+  margin-top: -240px;
+  margin-right: 10px;
+}
+
+#chart svg {
+  /*width:inherit;*/
+}
+
+.container {
+  background-color: red;
+}
