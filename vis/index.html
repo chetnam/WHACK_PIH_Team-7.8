@@ -19,6 +19,10 @@
   <script src="vendor/d3.layout.min.js"></script>
   <script src="rickshaw.js"></script>
 
+  <script src="js/header-index.js"></script>
+  <script src="js/jquery-3.1.1.slim.js"></script>
+  <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
   <!-- jQUERY SCRIPTS -->
     <!-- <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script> -->
   <!-- /jQUERY SCRIPTS -->
@@ -39,15 +43,28 @@
   <!-- /PAGE HEADER CONTENT DIV -->
 
   <div class="data-input">
+    <div id="requestType" class="data-input-field">
+      <fieldset>
+        <legend>Request Type</legend>
+        <div id="radioButtons">
+          <input type="radio" id="check-orders" name="orders">
+          <label for="check-orders">Check Orders</label>
+
+          <input type="radio" id="make-order" name="orders">
+          <label for="make-order">Make Order</label>
+        </div>
+      </fieldset>
+    </div>
+
     <div id="setLocation" class="data-input-field"><fieldset>
       <legend>Delivery Location</legend>
-      <label for="autocomplete">Location: </label>
-      <input id="autocomplete">
+      <label for="autocomplete-locations">Location: </label>
+      <input id="autocomplete-locations">
     </fieldset></div>
 
     <div id="selectItem" class="data-input-field"><fieldset>
       <legend>Item Category</legend>
-      <label for="files">Select a file:</label>
+      <label for="files">Select your item:</label>
       <select name="files" id="files">
         <option value="">Pick Your Needed Item</option>
         <optgroup label="Chemicals">
@@ -109,7 +126,7 @@
       </select>
     </fieldset></div>
 
-    <div id="setPriority" class="data-input-field">
+    <!-- <div id="setPriority" class="data-input-field">
       <fieldset>
         <legend>Delivery Priority</legend>
         <div id="radioButtons">
@@ -123,7 +140,7 @@
           <label for="high-priority">High</label>
         </div>
       </fieldset>
-    </div>
+    </div> -->
 
     <div id="submitRequest" class="data-input-field">
       <input type="submit" id="submit-button" name="submit-button">
@@ -138,9 +155,9 @@
   <script src="./test.js"></script>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-  <script src="js/header-index.js"></script>
-  <script src="js/jquery-3.1.1.slim.js"></script>
-  <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+  <!-- <script src="js/header-index.js"></script> -->
+  <!-- <script src="js/jquery-3.1.1.slim.js"></script> -->
+  <!-- <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script> -->
 
 </body>
 
