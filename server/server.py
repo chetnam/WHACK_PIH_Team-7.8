@@ -16,7 +16,7 @@ lastMessage = None
 @app.route("/")
 def index():
 
-    results = db.select_one()
+	db.setup()
 
     return render_template("index.html", lastMessage=lastMessage)
 
@@ -25,7 +25,7 @@ def index():
 def incoming_sms():
     """Send a dynamic reply to an incoming text message"""
     # Get the message the user sent our Twilio number
-<<<<<<< HEAD
+
     if request.method == 'POST':
         #body = client.messages.get('+16303625933')
         body = request.get['Body']
