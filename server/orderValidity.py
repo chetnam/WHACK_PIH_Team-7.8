@@ -4,13 +4,13 @@ def isBodyValid(body):
     try:
         validCommas = (body.count(',')==2)
         
-        int((splitBody(body))[2])
+        int((splitBody(body))['amount'])
         return validCommas
     except ValueError:
         return False
 
 # returns dictionary with order message split into location_id, sku, amountItem
 def splitBody(body):
-    message = body.split(',')
+    message = body.replace(' ','').split(',')
     messageDict = {"location_id":message[0],"SKU":message[1],"amount":message[2]}
     return messageDict

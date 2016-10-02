@@ -16,8 +16,7 @@ lastMessage = None
 @app.route("/")
 def index():
 
-    db.setup()
-    return render_template("index.html", lastMessage=db.select())
+    return render_template("index.html", lastMessage=db.getOrders())
 
 #replies to user's text
 @app.route("/sms", methods=['GET', 'POST'])
@@ -27,9 +26,10 @@ def incoming_sms():
 
     if request.method == 'POST':
         #body = client.messages.get('+16303625933')
-        body = request.get['Body']
+        body = request.values.get('Body', None)
         validMessage = isBodyValid(body)
-        date = request.get['DateSent']
+        print request.values
+        #date = request.values.get('DateSent', '')
 
         # Start our TwiML response
         response = twiml.Response()
@@ -40,9 +40,10 @@ def incoming_sms():
         # Text Message should be in form "Location_ID, SKU, ItemAmount"
         if validMessage==True:
             parsedMessage = splitBody(body)
-            message = "Location " + parsedMessage['Body'] + " , thank you for your order!"
-            parsedMessage['Date'] = date
-          	db.addOrder(parsedMessage)
+            message = "Location " + parsedMessage['location_id'] + " , thank you for your order!"
+           # parsedMessage['Date'] = date
+            print parsedMessage
+            db.addOrder(parsedMessage)
 
             #messageInfo = parsedMessage
             #.add(parsedMessage)

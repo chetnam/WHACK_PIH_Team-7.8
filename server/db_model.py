@@ -6,6 +6,7 @@ import vertica_python
 
 import re
 import os
+import datetime
 
 DB_NAME = 'test'
 DB_USER = 'dbadmin'
@@ -63,7 +64,10 @@ def query_db(query, args=(), one=False):
 
 
 def addOrder(m):
-    query_db("insert into orders (sku, location_id, item_amount, date_received) values ('" + m['SKU'] + "'," + m['location_id'] + "'," + m['amount'] + "'," + m['Date'] + "'; commit;")
+    query_db("insert into orders (sku, location_id, item_amount, date_received) values ('" + str(m['SKU']) + "'," + str(m['location_id']) + "," + str(m['amount']) + ",'" + str(datetime.datetime.now()) + "'::timestamp); commit;")
+
+def getOrders():
+    return query_db("select * from orders;")
 
 # pls only run once to setup the tables
 def setup():
