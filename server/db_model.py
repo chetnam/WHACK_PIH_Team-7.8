@@ -45,7 +45,7 @@ def get_db():
 
 
 def query_db(query, args=(), one=False):
-    print query
+    #print query
     cur = get_db().cursor()
 
     try:
@@ -72,12 +72,23 @@ def getOrders():
 
 def makeVisDict(loc, item):
     locQuery = "select * from locations where REGEXP_LIKE(loc_name, '.*?"+ loc +".*?', 'i');"
-    loc_info = query_db(locQuery)
-    print loc_info
+    loc_info = query_db(locQuery)[0]
+    #print loc_info
 
-    orderQuery = "select * from orders where location_id=" + loc_info[id] + ";"
+
+    orderQuery = "select * from orders where location_id=" + str(loc_info['id']) + ";"
     order_info = query_db(orderQuery)
-    print order_info
+    #print order_info
+
+    visDict = {'name': item}
+    data = []
+
+    for row in order_info:
+        seconds = (row['date_received'] - datetime.datetime(1970,1,1)).total_seconds()
+        data.append({'x':seconds, 'y':row['item_amount']})
+
+    visDict['data'] = data
+    return visDict
 
 
 
@@ -109,7 +120,7 @@ def setup():
                     d = l.strip().split('\t')
                     row_query = "insert into pih_data values (" + "'" + d[0].replace("'",'') + "','" + d[1].replace("'",'') + "','" + d[2].replace("'",'') + "','" + d[3].replace("'",'') + "','" + d[4].replace("'",'') + "','" + d[5].replace("'",'') + "','" + d[6].replace("'",'') + "','" + d[7].replace("'",'') + "'," + "'" + d[8].replace("'",'') + "'," + "'" + d[9].replace("'",'') + "'," + "'" + d[10].replace("'",'') + "'," + "'" + d[11].replace("'",'') + "'); commit;"
                     cur.execute(row_query)
-                    print row_query
+                    #print row_query
                 count += 1
 
         # rv = cur.fetchall()
