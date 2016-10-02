@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect
 from flask import render_template
-#twiml
 from twilio import twiml
+from orderValidity import *
 
 app = Flask(__name__)
 
@@ -22,22 +22,25 @@ def index():
 def incoming_sms():
     """Send a dynamic reply to an incoming text message"""
     # Get the message the user sent our Twilio number
-    body = request.values.get('Body', None)
+    #body = client.messages.get('+16303625933')
+    body = request.get['Body']
+    
+    validMessage = isBodyValid(body)
 
     # Start our TwiML response
-    resp = twiml.Response()
+    response = twiml.Response()
+
+    message = '';
 
     # Determine the right reply for this message
-    if body == 'hello':
-        resp.message("Hi!!")
-        resp.sms("Hi!")
-    elif body == 'bye':
-        resp.message("Goodbye")
-    else:
-        resp.message("  asdgasdg ")
-        resp.sms("YO")
-
-    return str(resp)
+    # Text Message should be in form "Location_ID, SKU, ItemAmount"
+    if validMessage==True:
+        message = "Location " + (splitBody(body))[2] + " , thank you for your order!"
+    elif validMessage!=True:
+        message = "Please abide by the order message syntax rules and try again. Thank yoU!"
+        
+    response.sms(message)
+    return str(response)
 
 if __name__ == "__main__":
     app.run('0.0.0.0')
