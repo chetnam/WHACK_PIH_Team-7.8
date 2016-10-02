@@ -1,11 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>WHACK 2016 | Team 7.8</title>
 
-<link type="text/css" rel="stylesheet" href="rickshaw.css">
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Quicksand:300,400,70'>
+  <link rel="stylesheet" href="css/header-style.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+  <link href="jquery-ui-1.12.1/jquery-ui.structure.css" rel="stylesheet">
+  <link href="jquery-ui-1.12.1/jquery-ui.theme.css" rel="stylesheet">
 
-<script src="./vendor/d3.min.js"></script>
-<script src="./vendor/d3.layout.min.js"></script>
-<script src="rickshaw.js"></script>
+  <link type="text/css" rel="stylesheet" href="rickshaw.css">
+</head>
 
-<div id="chart"></div>
+<body>
+  <script src="vendor/d3.min.js"></script>
+  <script src="vendor/d3.layout.min.js"></script>
+  <script src="rickshaw.js"></script>
 
-<script src="test.js"></script>
+  <script src="js/header-index.js"></script>
+  <script src="js/jquery-3.1.1.slim.js"></script>
+  <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+  <!-- jQUERY SCRIPTS -->
+    <!-- <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script> -->
+  <!-- /jQUERY SCRIPTS -->
+  <!-- PAGE HEADER CONTENT DIV -->
+  <div>
+    <div class="header">
+      <a href="#" class="name">WHACK 2016</a>
+      <a href="#t" class="contact">Team 7.8</a>
+    </div>
+
+    <div class="hero" id="particles-js">
+      <div class="w wave"></div>
+      <div class="w wave2"></div>
+      <div class="w wave3"></div>
+      <div class="w wave4"></div>
+    </div>
+  </div>
+  <!-- /PAGE HEADER CONTENT DIV -->
+
+  <div class="data-input">
+    <div id="requestType" class="data-input-field">
+      <fieldset>
+        <legend>Request Type</legend>
+        <div id="radioButtons">
+          <input type="radio" id="check-orders" name="orders">
+          <label for="check-orders">Check Orders</label>
+
+          <input type="radio" id="make-order" name="orders">
+          <label for="make-order">Make Order</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="setLocation" class="data-input-field"><fieldset>
+      <legend>Delivery Location</legend>
+      <label for="autocomplete-locations">Location: </label>
+      <input id="autocomplete-locations">
+    </fieldset></div>
+
+    <div id="selectItem" class="data-input-field"><fieldset>
+      <legend>Item Category</legend>
+      <label for="files">Select your item:</label>
+      <select name="files" id="files">
+        <option value="">Pick Your Needed Item</option>
+        <optgroup label="Chemicals">
+          <option value="Glutaraldehyde, 2% + activator, 5 liter can (1.3 gallon)">Glutaraldehyde</option>
+          <option value="Neutralizer, Glutaraldehyde, 2oz">Neutralizer</option>
+          <option value="Bleach Disinfectant, 1 gallon bottle">Bleach Disinfectant</option>
+          <option value="Sodium metabisulphite, 550mg tablet">Sodium metabisulphite</option>
+          <option value="Ethanol (ethyl alcohol), 95%, 1 Gallon">Ethanol (ethyl alcohol)</option>
+          <option value="Formalin (40% Formaldehyde), 1 gallon">Formalin (40% Formaldehyde)</option>
+        </optgroup>
+        <optgroup label="Drugs">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Biomedical">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Electrical">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Hardware">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Mechanical">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Office, Equipment, and Supplies">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Tools">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Facilities: Waste & Infection Control">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Lab General Supplies">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Lab Equipment">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Lab Reagents">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+        <optgroup label="Medical Equipment & Supplies">
+          <option value="somefile">Some unknown file</option>
+          <option value="someotherfile">Some other file</option>
+        </optgroup>
+      </select>
+    </fieldset></div>
+
+    <!-- <div id="setPriority" class="data-input-field">
+      <fieldset>
+        <legend>Delivery Priority</legend>
+        <div id="radioButtons">
+          <input type="radio" id="low-priority" name="delivery-priority">
+          <label for="low-priority">Low</label>
+
+          <input type="radio" id="medium-priority" name="delivery-priority">
+          <label for="medium-priority">Medium</label>
+
+          <input type="radio" id="high-priority" name="delivery-priority">
+          <label for="high-priority">High</label>
+        </div>
+      </fieldset>
+    </div> -->
+
+    <div id="submitRequest" class="data-input-field">
+      <input type="submit" id="submit-button" name="submit-button">
+    </div>
+  </div>
+
+
+  <div id="chart"></div>
+
+
+  <script src="js/script.js"></script>
+  <script src="./test.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <!-- <script src="js/header-index.js"></script> -->
+  <!-- <script src="js/jquery-3.1.1.slim.js"></script> -->
+  <!-- <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script> -->
+
+</body>
+
+</html>
