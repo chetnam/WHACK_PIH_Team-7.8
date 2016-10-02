@@ -61,13 +61,30 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+
+# pls only run once to setup the tables
 def setup():
     cur = get_db().cursor()
-    sql2 = "INSERT into contact values (1,'hello');"
+    create_pih_table = "create table pih_data( \
+                        sku char(4) not null primary key, \
+                        name varchar(100), \
+                        category varchar(100), \
+                        unit_of_measure varchar(10), \
+                        manufacturer varchar(100), \
+                        brand varchar(100), \
+                        manufacturer_code varchar(50), \
+                        manufacturer_name varchar(200), \
+                        vendor varchar(100), \
+                        vendor_code varchar(50), \
+                        vendor_name varchar(100), \
+                        cold_chain enum('TRUE', 'FALSE'), \
+                        UPC varchar(50), \
+                        NDC varchar(50), \
+                        );"
 
     try:
         # cur.execute(sql)
-        cur.execute(sql2)
+        cur.execute(create_pih_table)
         # rv = cur.fetchall()
 
         # Turn into colname->val dict representation of tuple
