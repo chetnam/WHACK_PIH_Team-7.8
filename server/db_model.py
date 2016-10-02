@@ -62,6 +62,9 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 
+def addOrder(m):
+    query_db("insert into orders (sku, location_id, item_amount, date_received) values ('" + m['SKU'] + "'," + m['location_id'] + "'," + m['amount'] + "'," + m['Date'] + "'; commit;")
+
 # pls only run once to setup the tables
 def setup():
     cur = get_db().cursor()

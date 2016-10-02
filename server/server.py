@@ -29,6 +29,7 @@ def incoming_sms():
         #body = client.messages.get('+16303625933')
         body = request.get['Body']
         validMessage = isBodyValid(body)
+        date = request.get['DateSent']
 
         # Start our TwiML response
         response = twiml.Response()
@@ -39,10 +40,14 @@ def incoming_sms():
         # Text Message should be in form "Location_ID, SKU, ItemAmount"
         if validMessage==True:
             parsedMessage = splitBody(body)
-            message = "Location " + parsedMessage[0] + " , thank you for your order!"
-            #db.add(parsedMessage)
+            message = "Location " + parsedMessage['Body'] + " , thank you for your order!"
+            parsedMessage['Date'] = date
+          	db.addOrder(parsedMessage)
+
+            #messageInfo = parsedMessage
+            #.add(parsedMessage)
         elif validMessage!=True:
-            message = "Please abide by the order message syntax rules and try again. Thank yoU!"
+            message = "Please abide by the order message syntax rules and try again. Thank you!"
         
         response.sms(message)
         return str(response)
