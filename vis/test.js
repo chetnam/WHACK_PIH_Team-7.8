@@ -1,14 +1,5 @@
 
-// set up our data series with 50 random data points
-
-
-//convert x to unix epoch Time
-
-var seriesData = [ [{x:1475365030, y:2}, {x:1475365031, y:3}, {x:1475365032, y:3}, {x:1475365034, y:4}, {x:1475365037, y:3}, {x:1475365040, y:2}] ];
-
-
-console.log(seriesData);
-
+//convert x times to unix epoch Time
 // instantiate our graph!
 
 var graph = new Rickshaw.Graph( {
@@ -18,12 +9,10 @@ var graph = new Rickshaw.Graph( {
 	renderer: 'scatterplot',
 	series: [
 		{
-			color: "#ff9030",
-			data: seriesData[0],
-		}//,{
-		// 	color: "#4c4cff",
-		// 	data: seriesData[1],
-		// }
+			color: "#4c4cff",
+			data: [{x:1475365030, y:2}, {x:1475365031, y:3}, {x:1475365032, y:3}, {x:1475365034, y:4}, {x:1475365037, y:3}, {x:1475365040, y:2}],
+      name: "Syringes"
+		}
 	]
 } );
 
@@ -31,16 +20,20 @@ var xAxis = new Rickshaw.Graph.Axis.Time({
     graph: graph
 });
 
+
 var yAxis = new Rickshaw.Graph.Axis.Y({
-    graph: graph,
-    tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+    graph: graph
 });
 
-
 graph.renderer.dotSize = 6;
-
-new Rickshaw.Graph.HoverDetail({ graph: graph });
-
 graph.render();
-xAxis.render();
-yAxis.render();
+
+var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+	graph: graph,
+	formatter: function(series, x, y) {
+		var date = '<span class="date">' + new Date(x * 1000).toUTCString() + '</span>';
+		var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
+		var content = swatch + series.name + ": " + parseInt(y) + '<br>' + date;
+		return content;
+	}
+} );
