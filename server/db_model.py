@@ -65,26 +65,35 @@ def query_db(query, args=(), one=False):
 # pls only run once to setup the tables
 def setup():
     cur = get_db().cursor()
-    create_pih_table = "create table pih_data( \
-                        sku char(4) not null primary key, \
-                        name varchar(100), \
-                        category varchar(100), \
-                        unit_of_measure varchar(10), \
-                        manufacturer varchar(100), \
-                        brand varchar(100), \
-                        manufacturer_code varchar(50), \
-                        manufacturer_name varchar(200), \
-                        vendor varchar(100), \
-                        vendor_code varchar(50), \
-                        vendor_name varchar(100), \
-                        cold_chain enum('TRUE', 'FALSE'), \
-                        UPC varchar(50), \
-                        NDC varchar(50), \
-                        );"
+    # create_pih_table = "create table pih_supply( \
+    #                     sku char(4) not null primary key, \
+    #                     name varchar(100), \
+    #                     category varchar(100), \
+    #                     unit_of_measure varchar(10), \
+    #                     manufacturer varchar(100), \
+    #                     brand varchar(100), \
+    #                     manufacturer_code varchar(50), \
+    #                     manufacturer_name varchar(200), \
+    #                     vendor varchar(100), \
+    #                     vendor_code varchar(50), \
+    #                     vendor_name varchar(100), \
+    #                     cold_chain enum('TRUE', 'FALSE'), \
+    #                     UPC varchar(50), \
+    #                     NDC varchar(50), \
+    #                     );"
 
     try:
-        # cur.execute(sql)
-        cur.execute(create_pih_table)
+        with open("pih_data.tsv") as f:
+            count = 0
+            for l in f:
+                if count > 0:
+                    count += 1
+                    row_query = "insert into pih_data values " + str(tuple(l.strip().split('\t'))) + ";"
+                    cur.execute(row_query)
+
+
+
+        
         # rv = cur.fetchall()
 
         # Turn into colname->val dict representation of tuple
